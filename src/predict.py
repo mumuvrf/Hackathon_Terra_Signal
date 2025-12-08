@@ -24,7 +24,7 @@ def predict(path: str = '../data/inference.csv'):
     X = ds
     X = ct.fit_transform(X)
 
-    df['Churn'] = model.predict(X)
+    df['Churn'] = pd.Series(model.predict(X)).apply(lambda x: 'Yes' if x == 1 else 'No')
     df.drop(columns=['MonthlyChargesCategory', 'tenureCategory'], inplace=True)
 
     df.to_csv('../data/prediction.csv', index=False)
